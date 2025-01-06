@@ -12,23 +12,59 @@ namespace CalculadoraBasica
 
         public string menu()
         {
-            Console.WriteLine("Opciones de calculadora: ");
-            Console.WriteLine();
-            Console.WriteLine("1.- Sumar");
-            Console.WriteLine("2.- Restar");
-            Console.WriteLine("3.- Multiplicar");
-            Console.WriteLine("4.- Dividir");
-            Console.WriteLine("5.- Historial");
-            Console.WriteLine("6.- Salir");
+            string[] opciones =
+            {
+                "Sumar",
+                "Restar",
+                "Multiplicar",
+                "Dividir",
+                "Historial",
+                "Salir"
+            };
 
-            Console.WriteLine();
-            Console.WriteLine("Elija el numero de la opción: ");
-            string opcion = Console.ReadLine();
+            int selector = 0;
 
-            return opcion;
+            ConsoleKey tecla;
+
+            do
+            {
+                Console.WriteLine("Bienvenido a la calculadora");
+
+                Console.WriteLine("----------");
+                Console.WriteLine();
+
+                for (int i = 0; i < opciones.Length; i++)
+                {
+                    if (selector == i)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($">{opciones[i]}");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.WriteLine(opciones[i]);
+                    }
+                }
+
+                tecla = Console.ReadKey(true).Key;
+
+                if (tecla == ConsoleKey.UpArrow)
+                {
+                    selector = (selector == 0) ? opciones.Length - 1 : selector - 1;
+                }
+                else if (tecla == ConsoleKey.DownArrow)
+                {
+                    selector = (selector == opciones.Length - 1) ? 0 : selector + 1;
+                }
+                Console.Clear();
+            } while(tecla != ConsoleKey.Enter);
+
+            return opciones[selector];
+            
         }
 
-        public void calculos(int opcion)
+        public void calculos(string opcion)
         {
             int num1;
             int num2;
@@ -39,7 +75,7 @@ namespace CalculadoraBasica
 
             switch (opcion)
             {
-                case 1:
+                case "Sumar":
                     num1 = entrada(1);
                     num2 = entrada(2);
 
@@ -59,7 +95,7 @@ namespace CalculadoraBasica
                     Console.WriteLine();
 
                     break;
-                case 2:
+                case "Restar":
                     num1 = entrada(1);
                     num2 = entrada(2);
 
@@ -78,7 +114,7 @@ namespace CalculadoraBasica
                     Console.WriteLine();
 
                     break;
-                case 3:
+                case "Multiplicar":
                     num1 = entrada(1);
                     num2 = entrada(2);
 
@@ -96,7 +132,7 @@ namespace CalculadoraBasica
                     Console.WriteLine();
                     Console.WriteLine();
                     break;
-                case 4:
+                case "Dividir":
                     num1 = entrada(1);
                     num2 = entrada(2);
 
@@ -115,7 +151,7 @@ namespace CalculadoraBasica
                     historial = new Historial(num1, num2, "/", resultado);
                     historial.guardar(historial);
                     break;
-                case 5:
+                case "Historial":
                     Console.Clear();
                     historial = new Historial();
                     listarHistorial = historial.listar();
