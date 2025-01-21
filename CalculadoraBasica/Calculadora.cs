@@ -35,7 +35,7 @@ namespace CalculadoraBasica
 
         public double dividir()
         {
-            return num1 / num2;
+            return (double)num1 / num2;
         }
     }
 }
